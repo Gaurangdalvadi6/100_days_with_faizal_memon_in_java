@@ -2,6 +2,8 @@ package com.gaurang.first.app.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -11,6 +13,12 @@ public class User {
     private int id;
     private String name;
     private String email;
+
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    private Profile profile;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Post> post;
 
     public User() {
     }
@@ -43,5 +51,21 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public List<Post> getPost() {
+        return post;
+    }
+
+    public void setPost(List<Post> post) {
+        this.post = post;
     }
 }

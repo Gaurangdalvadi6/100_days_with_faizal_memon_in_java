@@ -25,6 +25,13 @@ public class UserService {
 
     public User createUser(User user) {
 //        userDb.putIfAbsent(user.getId(), user);
+
+        if (user.getProfile() != null)
+            user.getProfile().setUser(user);
+
+        if (user.getPost() != null)
+            user.getPost().forEach(post -> post.setUser(user));
+
         return userRepository.save(user);
     }
 
